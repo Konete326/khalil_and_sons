@@ -6,10 +6,10 @@
         $rateTola = $goldRate22k ? number_format($goldRate22k->rate_per_tola) : '227,333';
     @endphp
 
-    <section id="high-jewellery" class="relative overflow-hidden bg-gradient-to-b from-oxblood-dark via-[#2e0909] to-ivory-base pt-24 pb-28 text-ivory-base">
+    <section id="collections" class="relative overflow-hidden bg-gradient-to-b from-oxblood-dark via-[#2e0909] to-ivory-base pt-24 pb-28 text-ivory-base">
         <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div class="mx-auto max-w-3xl text-center">
-                <div class="inline-flex flex-wrap items-center justify-center gap-2 border border-gold-antique/40 bg-oxblood-dark/80 px-4 py-1.5 backdrop-blur-md shadow-xl">
+                <div id="gold-rates" class="inline-flex flex-wrap items-center justify-center gap-2 border border-gold-antique/40 bg-oxblood-dark/80 px-4 py-1.5 backdrop-blur-md shadow-xl">
                     <span class="h-1.5 w-1.5 rounded-full bg-gold-antique animate-pulse"></span>
                     <span class="text-[10px] font-semibold tracking-[0.25em] text-gold-light uppercase">Karachi Sarafa 22K: Rs. {{ $rateTola }}/Tola</span>
                     <span class="text-gold-antique/40 hidden sm:inline">•</span>
@@ -82,7 +82,7 @@
                     </button>
                 </div>
 
-                <div class="group border border-gold-antique/30 bg-oxblood-dark/60 backdrop-blur-md p-6 shadow-xl transition duration-300 hover:-translate-y-1.5 hover:border-gold-antique">
+                <div id="custom-atelier" class="group border border-gold-antique/30 bg-oxblood-dark/60 backdrop-blur-md p-6 shadow-xl transition duration-300 hover:-translate-y-1.5 hover:border-gold-antique">
                     <span class="font-serif text-[11px] tracking-widest text-gold-antique uppercase">Murshid Atelier</span>
                     <h3 class="mt-2 font-serif text-xl text-gold-light">Bespoke Commission</h3>
                     <p class="mt-2 text-xs text-ivory-base/70 leading-relaxed">Collaborate one-on-one with our master Karigars since 1991 in Murshid Bazaar, Saddar.</p>

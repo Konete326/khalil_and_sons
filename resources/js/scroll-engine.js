@@ -52,10 +52,11 @@ export function initHeroScrollEngine(config = {}) {
             canvas.height = displayH;
         }
 
-        const scale = Math.max(displayW / img.naturalWidth, displayH / img.naturalHeight);
-        const drawW = img.naturalWidth * scale, drawH = img.naturalHeight * scale;
-        ctx.clearRect(0, 0, displayW, displayH);
-        ctx.drawImage(img, (displayW - drawW) / 2, (displayH - drawH) / 2, drawW, drawH);
+        const scale = Math.max(canvas.width / img.naturalWidth, canvas.height / img.naturalHeight);
+        const drawW = Math.ceil(img.naturalWidth * scale), drawH = Math.ceil(img.naturalHeight * scale);
+        const offsetX = Math.floor((canvas.width - drawW) / 2), offsetY = Math.floor((canvas.height - drawH) / 2);
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.drawImage(img, offsetX, offsetY, drawW, drawH);
         currentRenderedIndex = frameToDraw;
     }
 
@@ -72,17 +73,17 @@ export function initHeroScrollEngine(config = {}) {
         if (!isTicking) {
             isTicking = true;
             requestAnimationFrame(() => {
-                if (targetIndex !== currentRenderedIndex) render(targetIndex);
+                const dpr = Math.min(window.devicePixelRatio || 1, 2);
+                if (targetIndex !== currentRenderedIndex || canvas.width !== Math.round(canvas.clientWidth * dpr) || canvas.height !== Math.round(canvas.clientHeight * dpr)) {
+                    render(targetIndex);
+                }
                 isTicking = false;
             });
         }
     }
 
     function preload(idx, onDone) {
-        if (images.has(idx)) {
-            if (onDone) onDone();
-            return;
-        }
+        if (images.has(idx)) { if (onDone) onDone(); return; }
         const img = new Image();
         img.src = getFrameUrl(idx);
         img.onload = () => {
@@ -100,9 +101,7 @@ export function initHeroScrollEngine(config = {}) {
         preload(idx, () => {
             loaded++;
             const pct = Math.round((loaded / initialTier.length) * 100);
-            if (window.Alpine?.store('heroScroll')) {
-                window.Alpine.store('heroScroll').loaded = pct;
-            }
+            if (window.Alpine?.store('heroScroll')) window.Alpine.store('heroScroll').loaded = pct;
             if (loaded >= 1) updateProgress(0, true);
             if (loaded === initialTier.length && !isMobile) {
                 frameIndices.filter(i => !images.has(i)).forEach(i => preload(i));
