@@ -30,10 +30,10 @@
             </div>
 
             <nav class="hidden lg:flex lg:items-center lg:space-x-8">
-                <a href="#collections" class="text-xs font-medium tracking-widest uppercase text-ivory-base/85 hover:text-gold-light transition">Collections</a>
-                <a href="#custom-atelier" class="text-xs font-medium tracking-widest uppercase text-ivory-base/85 hover:text-gold-light transition">Custom Atelier</a>
-                <a href="#gold-rates" class="text-xs font-medium tracking-widest uppercase text-ivory-base/85 hover:text-gold-light transition">Gold Rates</a>
-                <a href="#about" class="text-xs font-medium tracking-widest uppercase text-ivory-base/85 hover:text-gold-light transition">About</a>
+                <a href="{{ request()->routeIs('home') ? '#collections' : route('home') . '#collections' }}" class="text-xs font-medium tracking-widest uppercase transition {{ request()->routeIs('home') ? 'text-gold-light border-b border-gold-antique/60 pb-0.5' : 'text-ivory-base/85 hover:text-gold-light' }}">Collections</a>
+                <a href="{{ route('bespoke') }}" class="text-xs font-medium tracking-widest uppercase transition {{ request()->routeIs('bespoke') ? 'text-gold-light border-b border-gold-antique/60 pb-0.5' : 'text-ivory-base/85 hover:text-gold-light' }}">Custom Atelier</a>
+                <a href="{{ request()->routeIs('home') ? '#gold-rates' : route('home') . '#gold-rates' }}" class="text-xs font-medium tracking-widest uppercase transition text-ivory-base/85 hover:text-gold-light">Gold Rates</a>
+                <a href="{{ route('about') }}" class="text-xs font-medium tracking-widest uppercase transition {{ request()->routeIs('about') ? 'text-gold-light border-b border-gold-antique/60 pb-0.5' : 'text-ivory-base/85 hover:text-gold-light' }}">About</a>
             </nav>
 
             <div class="flex items-center space-x-3 sm:space-x-5">
@@ -122,10 +122,10 @@
                 </div>
 
                 <nav class="mt-6 flex flex-col space-y-4">
-                    <a href="#collections" @click="mobileMenuOpen = false" class="text-sm font-medium tracking-widest uppercase text-ivory-base hover:text-gold-light transition">Collections</a>
-                    <a href="#custom-atelier" @click="mobileMenuOpen = false" class="text-sm font-medium tracking-widest uppercase text-ivory-base hover:text-gold-light transition">Custom Atelier</a>
-                    <a href="#gold-rates" @click="mobileMenuOpen = false" class="text-sm font-medium tracking-widest uppercase text-ivory-base hover:text-gold-light transition">Gold Rates</a>
-                    <a href="#about" @click="mobileMenuOpen = false" class="text-sm font-medium tracking-widest uppercase text-ivory-base hover:text-gold-light transition">About</a>
+                    <a href="{{ request()->routeIs('home') ? '#collections' : route('home') . '#collections' }}" @click="mobileMenuOpen = false" class="text-sm font-medium tracking-widest uppercase transition {{ request()->routeIs('home') ? 'text-gold-light font-semibold' : 'text-ivory-base hover:text-gold-light' }}">Collections</a>
+                    <a href="{{ route('bespoke') }}" @click="mobileMenuOpen = false" class="text-sm font-medium tracking-widest uppercase transition {{ request()->routeIs('bespoke') ? 'text-gold-light font-semibold' : 'text-ivory-base hover:text-gold-light' }}">Custom Atelier</a>
+                    <a href="{{ request()->routeIs('home') ? '#gold-rates' : route('home') . '#gold-rates' }}" @click="mobileMenuOpen = false" class="text-sm font-medium tracking-widest uppercase transition text-ivory-base hover:text-gold-light">Gold Rates</a>
+                    <a href="{{ route('about') }}" @click="mobileMenuOpen = false" class="text-sm font-medium tracking-widest uppercase transition {{ request()->routeIs('about') ? 'text-gold-light font-semibold' : 'text-ivory-base hover:text-gold-light' }}">About</a>
                 </nav>
             </div>
 

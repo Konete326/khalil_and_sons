@@ -1,14 +1,12 @@
 import './bootstrap';
 import Alpine from 'alpinejs';
-import { initHeroScrollEngine } from './scroll-engine';
+import { initHeroScrollEngine, initScrollCanvas } from './scroll-engine';
 
 window.Alpine = Alpine;
 
-Alpine.store('heroScroll', {
-    progress: 0,
-    loaded: 0,
-    isReady: false
-});
+Alpine.store('heroScroll', { progress: 0, loaded: 0, isReady: false });
+Alpine.store('aboutScroll', { progress: 0, loaded: 0, isReady: false });
+Alpine.store('bespokeScroll', { progress: 0, loaded: 0, isReady: false });
 
 Alpine.store('notifications', {
     items: [],
@@ -81,15 +79,17 @@ window.customConfirm = (message, onConfirm, title = 'Confirmation Required') => 
 
 Alpine.start();
 
-function startHeroScroll() {
-    initHeroScrollEngine({
-        canvasId: 'hero-scroll-canvas',
-        containerId: 'hero-scroll-container'
-    });
+function startScrollEngines() {
+    const containers = document.querySelectorAll('[data-scroll-container]');
+    if (containers.length > 0) {
+        containers.forEach(el => initScrollCanvas(el));
+    } else {
+        initHeroScrollEngine();
+    }
 }
 
 if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', startHeroScroll);
+    document.addEventListener('DOMContentLoaded', startScrollEngines);
 } else {
-    startHeroScroll();
+    startScrollEngines();
 }
