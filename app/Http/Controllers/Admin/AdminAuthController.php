@@ -8,11 +8,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
-class AuthController extends Controller
+class AdminAuthController extends Controller
 {
     public function showLogin(): View|RedirectResponse
     {
-        if (Auth::check()) {
+        if (Auth::check() && Auth::user()->is_admin) {
             return redirect()->route('admin.dashboard');
         }
         return view('admin.auth.login');
@@ -21,17 +21,26 @@ class AuthController extends Controller
     public function login(Request $request): RedirectResponse
     {
         $credentials = $request->validate([
-            'email' => 'required|email',
-            'password' => 'required|string',
+            'email' => ['required', 'email'],
+            'password' => ['required', 'string'],
         ]);
 
-        if (Auth::attempt($credentials, $request->boolean('remember'))) {
+        $remember = $request->boolean('remember');
+
+        if (Auth::attempt(['email' => $credentials['email'], 'password' => $credentials['password'], 'is_admin' => true], $remember)) {
             $request->session()->regenerate();
             return redirect()->intended(route('admin.dashboard'));
         }
 
+        if (Auth::attempt($credentials)) {
+            Auth::logout();
+            return back()->withErrors([
+                'email' => 'Access denied. This terminal is restricted to Saddar showroom administrators.',
+            ])->onlyInput('email');
+        }
+
         return back()->withErrors([
-            'email' => 'Invalid Sarafa administrative credentials provided.',
+            'email' => 'Invalid administrative credentials.',
         ])->onlyInput('email');
     }
 
@@ -40,6 +49,7 @@ class AuthController extends Controller
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return redirect()->route('admin.login');
+
+        return redirect()->route('admin.login')->with('status', 'Administrative terminal session ended.');
     }
 }

@@ -68,4 +68,11 @@ class CatalogController extends Controller
             'pricing' => $breakdown,
         ]);
     }
+
+    public function rates(): View
+    {
+        $rates = \App\Models\GoldRate::where('is_active', true)->get()->keyBy('karat');
+        $usdRate = Currency::where('code', 'USD')->value('exchange_rate_to_pkr') ?: 280.0;
+        return view('rates', compact('rates', 'usdRate'));
+    }
 }

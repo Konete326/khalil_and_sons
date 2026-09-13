@@ -44,7 +44,6 @@
     <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"></script>
 </head>
 <body class="min-h-screen flex flex-col bg-ivory-base text-charcoal antialiased selection:bg-oxblood selection:text-gold-light">
-    <x-layouts.metal-rates-bar />
     <x-layouts.header />
     
     <main id="main-content" class="flex-grow w-full">

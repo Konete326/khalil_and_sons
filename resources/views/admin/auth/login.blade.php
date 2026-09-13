@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Proprietor Login | Khalil & Sons Jewellers</title>
+    <title>Saddar Atelier Portal | Khalil & Sons Jewellers</title>
     <link rel="icon" type="image/png" href="{{ asset('assets/logo.png') }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,8 +14,14 @@
         <div class="text-center mb-8">
             <img src="{{ asset('assets/logo.png') }}" alt="Khalil & Sons" class="h-14 w-14 mx-auto object-contain mb-3" />
             <h1 class="font-serif text-2xl text-gold-light tracking-wider uppercase">Khalil & Sons</h1>
-            <p class="text-[10px] tracking-[0.25em] text-gold-antique uppercase mt-1">Sarafa Proprietor Terminal • Saddar</p>
+            <p class="text-[10px] tracking-[0.25em] text-gold-antique uppercase mt-1">Saddar Atelier Portal • Master Control</p>
         </div>
+
+        @if(session('status'))
+            <div class="mb-5 border border-gold-antique/40 bg-gold-antique/10 p-3 text-xs text-gold-light text-center">
+                {{ session('status') }}
+            </div>
+        @endif
 
         @if($errors->any())
             <div class="mb-6 border border-red-500/40 bg-red-950/60 p-3.5 text-xs text-red-200">
@@ -28,8 +34,8 @@
         <form action="{{ route('admin.login.submit') }}" method="POST" class="space-y-4">
             @csrf
             <div>
-                <label class="block text-[11px] uppercase tracking-wider text-gold-antique mb-1">Proprietor Email</label>
-                <input type="email" name="email" value="{{ old('email', 'admin@khaliljewellers.pk') }}" required autofocus class="w-full border border-gold-antique/30 bg-black/40 px-3.5 py-2.5 text-xs text-ivory-base placeholder-ivory-base/40 focus:border-gold-antique focus:outline-none" />
+                <label class="block text-[11px] uppercase tracking-wider text-gold-antique mb-1">Administrator Email</label>
+                <input type="email" name="email" value="{{ old('email', 'admin@gmail.com') }}" required autofocus class="w-full border border-gold-antique/30 bg-black/40 px-3.5 py-2.5 text-xs text-ivory-base placeholder-ivory-base/40 focus:border-gold-antique focus:outline-none" />
             </div>
 
             <div>

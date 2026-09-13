@@ -1,12 +1,14 @@
 <?php
 
 use App\Http\Controllers\Admin;
+use App\Http\Controllers\Auth\CustomerAuthController;
 use App\Http\Controllers\CatalogController;
 use App\Http\Controllers\CustomOrderController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [CatalogController::class, 'index'])->name('home');
 Route::get('/catalog', [CatalogController::class, 'catalog'])->name('catalog');
+Route::get('/gold-rates', [CatalogController::class, 'rates'])->name('gold.rates');
 Route::get('/about', fn() => view('about'))->name('about');
 Route::get('/bespoke', fn() => view('bespoke'))->name('bespoke');
 
@@ -20,12 +22,19 @@ Route::post('/api/atelier/order', [CustomOrderController::class, 'storeOrder'])-
 Route::post('/api/atelier/order/{code}/slip', [CustomOrderController::class, 'uploadSlip'])->name('atelier.slip');
 Route::get('/track/{code?}', [CustomOrderController::class, 'track'])->name('track');
 
-Route::prefix('admin')->name('admin.')->group(function () {
-    Route::get('/login', [Admin\AuthController::class, 'showLogin'])->name('login');
-    Route::post('/login', [Admin\AuthController::class, 'login'])->name('login.submit');
-    Route::post('/logout', [Admin\AuthController::class, 'logout'])->name('logout');
+Route::get('/login', [CustomerAuthController::class, 'showLogin'])->name('login');
+Route::post('/login', [CustomerAuthController::class, 'login'])->name('login.submit');
+Route::get('/register', [CustomerAuthController::class, 'showRegister'])->name('register');
+Route::post('/register', [CustomerAuthController::class, 'register'])->name('register.submit');
+Route::post('/logout', [CustomerAuthController::class, 'logout'])->name('logout');
+Route::get('/account', fn() => view('account'))->middleware('auth')->name('account');
 
-    Route::middleware('auth')->group(function () {
+Route::prefix('admin')->name('admin.')->group(function () {
+    Route::get('/login', [Admin\AdminAuthController::class, 'showLogin'])->name('login');
+    Route::post('/login', [Admin\AdminAuthController::class, 'login'])->name('login.submit');
+    Route::post('/logout', [Admin\AdminAuthController::class, 'logout'])->name('logout');
+
+    Route::middleware(['auth', 'admin'])->group(function () {
         Route::get('/', [Admin\DashboardController::class, 'index'])->name('dashboard');
         Route::get('/rates', [Admin\RateController::class, 'index'])->name('rates.index');
         Route::post('/rates/update', [Admin\RateController::class, 'update'])->name('rates.update');
