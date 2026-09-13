@@ -6,6 +6,8 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ $title ?? "Khalil & Sons Jewellers | Luxury Heritage Jewellery Saddar Karachi" }}</title>
     <meta name="description" content="Handcrafted bridal heirlooms, polki, certified solitaires, and bespoke 22K/24K gold jewellery crafted by master artisans in Murshid Bazaar, Saddar, Karachi since 1991.">
+    <link rel="icon" type="image/png" href="{{ asset('assets/logo.png') }}">
+    <link rel="apple-touch-icon" href="{{ asset('assets/logo.png') }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     @vite(['resources/css/app.css', 'resources/js/app.js'])

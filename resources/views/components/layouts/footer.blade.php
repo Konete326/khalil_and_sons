@@ -10,9 +10,7 @@
         <div class="grid grid-cols-1 gap-12 lg:grid-cols-4">
             <div class="space-y-6">
                 <div class="flex items-center space-x-3">
-                    <span class="flex h-10 w-10 items-center justify-center border border-gold-antique bg-oxblood text-sm font-serif font-bold text-gold-light">
-                        K&S
-                    </span>
+                    <img src="{{ asset('assets/logo.png') }}" alt="Khalil & Sons Logo" class="h-11 w-11 object-contain rounded shadow-sm" />
                     <div class="flex flex-col">
                         <span class="font-serif text-lg tracking-[0.2em] text-gold-light uppercase">
                             Khalil & Sons

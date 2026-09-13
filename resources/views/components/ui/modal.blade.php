@@ -33,9 +33,7 @@
         >
             <div class="flex items-center justify-between border-b border-gold-antique/20 pb-4">
                 <div class="flex items-center space-x-3">
-                    <span class="flex h-8 w-8 items-center justify-center border border-gold-antique bg-oxblood text-xs font-serif tracking-widest text-gold-light">
-                        K&S
-                    </span>
+                    <img src="{{ asset('assets/logo.png') }}" alt="Khalil & Sons" class="h-8 w-8 object-contain rounded shadow-sm" />
                     <h3 id="modal-title" class="font-serif text-xl font-semibold tracking-wide text-oxblood" x-text="$store.modal.title"></h3>
                 </div>
                 <button

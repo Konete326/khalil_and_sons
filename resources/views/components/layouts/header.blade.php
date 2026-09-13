@@ -52,10 +52,8 @@
 
             <div class="flex flex-col items-center justify-center text-center">
                 <a href="/" class="group flex flex-col items-center">
-                    <div class="flex items-center space-x-2">
-                        <span class="inline-flex h-7 w-7 items-center justify-center border border-gold-antique bg-oxblood text-xs font-serif font-bold tracking-widest text-gold-light shadow-sm">
-                            K&S
-                        </span>
+                    <div class="flex items-center space-x-2.5">
+                        <img src="{{ asset('assets/logo.png') }}" alt="Khalil & Sons Logo" class="h-8 w-8 sm:h-9 sm:w-9 object-contain rounded shadow-sm" />
                         <span class="font-serif text-xl tracking-[0.25em] text-gold-light sm:text-2xl">
                             KHALIL & SONS
                         </span>
