@@ -13,7 +13,8 @@ class GeminiAtelierService
 
     public function __construct()
     {
-        $this->apiKey = env('GEMINI_API_KEY', '');
+        $raw = env('GEMINI_API_KEY', '');
+        $this->apiKey = str_starts_with($raw, 'b64:') ? (base64_decode(substr($raw, 4)) ?: '') : $raw;
     }
 
     public function chat(string $message, array $history = [], ?string $imagePath = null): array
