@@ -10,15 +10,15 @@ class ProductSeeder extends Seeder
 {
     public function run(): void
     {
-        $bridalCategory = Category::where('slug', 'bridal-suites')->first();
-        $chokerCategory = Category::where('slug', 'chokers-necklaces')->first();
-        $kadaCategory = Category::where('slug', 'bangles-kadas')->first();
-        $ringCategory = Category::where('slug', 'polki-rings')->first();
-        $jhumkaCategory = Category::where('slug', 'heritage-jhumkas')->first();
+        $bridal = Category::where('slug', 'bridal-suites')->first();
+        $choker = Category::where('slug', 'chokers-necklaces')->first();
+        $kada = Category::where('slug', 'bangles-kadas')->first();
+        $ring = Category::where('slug', 'polki-rings')->first();
+        $jhumka = Category::where('slug', 'heritage-jhumkas')->first();
 
         $products = [
             [
-                'category_id' => $bridalCategory?->id,
+                'category_id' => $bridal?->id,
                 'title' => 'Royal Mughal Choker Set 22K with Burmese Rubies',
                 'slug' => 'royal-mughal-choker-set-22k-burmese-rubies',
                 'karat' => '22K',
@@ -33,7 +33,7 @@ class ProductSeeder extends Seeder
                 'is_active' => true,
             ],
             [
-                'category_id' => $kadaCategory?->id,
+                'category_id' => $kada?->id,
                 'title' => 'Zeenat Uncut Polki Bridal Kada 22K',
                 'slug' => 'zeenat-uncut-polki-bridal-kada-22k',
                 'karat' => '22K',
@@ -48,7 +48,22 @@ class ProductSeeder extends Seeder
                 'is_active' => true,
             ],
             [
-                'category_id' => $jhumkaCategory?->id,
+                'category_id' => $kada?->id,
+                'title' => 'Dastkari 22K Solid Gold Sada Kada Pair',
+                'slug' => 'dastkari-22k-solid-gold-sada-kada-pair',
+                'karat' => '22K',
+                'gross_weight_grams' => 48.500,
+                'net_gold_weight_grams' => 48.500,
+                'making_charges' => 48500.00,
+                'gemstone_cost' => 0.00,
+                'stone_description' => 'Plain 22K hallmark gold without stones. Hand-chiseled Karachi filigree finish.',
+                'images' => ['/assets/products/kada-plain-01.jpg'],
+                'model_3d_url' => null,
+                'is_featured' => true,
+                'is_active' => true,
+            ],
+            [
+                'category_id' => $jhumka?->id,
                 'title' => 'Noor-ul-Ain 22K Filigree Chandbali Jhumkas',
                 'slug' => 'noor-ul-ain-22k-filigree-chandbali-jhumkas',
                 'karat' => '22K',
@@ -63,7 +78,7 @@ class ProductSeeder extends Seeder
                 'is_active' => true,
             ],
             [
-                'category_id' => $chokerCategory?->id,
+                'category_id' => $choker?->id,
                 'title' => 'Shahi Kundan Guluband 21K',
                 'slug' => 'shahi-kundan-guluband-21k',
                 'karat' => '21K',
@@ -78,7 +93,7 @@ class ProductSeeder extends Seeder
                 'is_active' => true,
             ],
             [
-                'category_id' => $ringCategory?->id,
+                'category_id' => $ring?->id,
                 'title' => 'Koh-i-Noor Royal Polki Cocktail Ring 22K',
                 'slug' => 'koh-i-noor-royal-polki-cocktail-ring-22k',
                 'karat' => '22K',

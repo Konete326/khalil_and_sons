@@ -31,3 +31,22 @@ body {
 h1, h2, h3, h4, h5, h6, .font-luxury {
     font-family: var(--font-serif);
 }
+
+a,
+button,
+[role="button"],
+input[type="submit"],
+input[type="button"],
+input[type="reset"],
+select,
+summary,
+[x-on\:click],
+[\@click] {
+    cursor: pointer !important;
+}
+
+button:disabled,
+[disabled],
+[aria-disabled="true"] {
+    cursor: not-allowed !important;
+}

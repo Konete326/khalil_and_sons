@@ -2,7 +2,7 @@
     <x-sections.bespoke-scroll-canvas />
 
     <section id="bespoke-steps" class="relative overflow-hidden bg-gradient-to-b from-oxblood-dark via-[#230505] to-ivory-base pt-20 pb-28 text-ivory-base">
-        <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="relative mx-auto max-w-7xl xl:max-w-[1400px] px-6 sm:px-8 lg:px-12">
             <div class="mx-auto max-w-3xl text-center">
                 <div class="inline-flex items-center space-x-2 border border-gold-antique/40 bg-oxblood-dark/80 px-4 py-1.5 backdrop-blur-md shadow-xl">
                     <span class="h-1.5 w-1.5 rounded-full bg-gold-antique animate-pulse"></span>
