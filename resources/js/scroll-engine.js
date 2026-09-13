@@ -24,7 +24,10 @@ export function initScrollCanvas(container) {
 
     function updateProgress(progress, ready) {
         const store = window.Alpine?.store(storeKey);
-        if (store) { store.progress = progress; if (ready !== undefined) store.isReady = ready; }
+        if (store) {
+            if (progress !== undefined) store.progress = progress;
+            if (ready !== undefined) store.isReady = ready;
+        }
         window.dispatchEvent(new CustomEvent('hero-scroll', { detail: { progress, ready, container } }));
     }
 
@@ -81,8 +84,12 @@ export function initScrollCanvas(container) {
         if (images.has(idx)) { if (onDone) onDone(); return; }
         const img = new Image();
         img.src = getFrameUrl(idx);
-        img.onload = () => { images.set(idx, img); if (currentRenderedIndex === -1 && idx === frameIndices[0]) render(idx); if (onDone) onDone(); };
-        img.onerror = () => { if (onDone) onDone(); };
+        img.onload = () => {
+            images.set(idx, img);
+            if (currentRenderedIndex === -1 && idx === frameIndices[0]) { render(idx); updateProgress(undefined, true); }
+            if (onDone) onDone();
+        };
+        img.onerror = () => { if (idx === frameIndices[0]) updateProgress(undefined, true); if (onDone) onDone(); };
     }
 
     const initialTier = isMobile ? frameIndices : frameIndices.filter((_, i) => i % (totalFrames < 50 ? 2 : 3) === 0);
@@ -92,12 +99,12 @@ export function initScrollCanvas(container) {
         preload(idx, () => {
             loaded++;
             if (window.Alpine?.store(storeKey)) window.Alpine.store(storeKey).loaded = Math.round((loaded / initialTier.length) * 100);
-            if (loaded >= 1) updateProgress(0, true);
+            if (loaded >= 1) updateProgress(undefined, true);
             if (loaded === initialTier.length && !isMobile) frameIndices.filter(i => !images.has(i)).forEach(i => preload(i));
         });
     });
 
-    setTimeout(() => updateProgress(0, true), 1000);
+    setTimeout(() => updateProgress(undefined, true), 300);
     window.addEventListener('scroll', onScroll, { passive: true });
     window.addEventListener('resize', () => { if (currentRenderedIndex !== -1) render(currentRenderedIndex); }, { passive: true });
     onScroll();

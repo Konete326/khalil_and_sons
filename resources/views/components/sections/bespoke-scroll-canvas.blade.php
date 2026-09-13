@@ -1,13 +1,14 @@
-<section id="bespoke-scroll-container" data-scroll-container data-sequence-path="{{ asset('assets/bespoke/frame_') }}" data-total-frames="41" data-pad-length="6" data-extension="jpg" data-store-key="bespokeScroll" class="relative h-[350vh] sm:h-[400vh] bg-oxblood-dark">
+<section id="bespoke-scroll-container" x-data data-scroll-container data-sequence-path="{{ asset('assets/bespoke/frame_') }}" data-total-frames="41" data-pad-length="6" data-extension="jpg" data-store-key="bespokeScroll" class="relative h-[350vh] sm:h-[400vh] bg-oxblood-dark">
     <div class="sticky top-0 flex h-[100dvh] w-full items-center justify-center overflow-hidden">
         <canvas id="bespoke-scroll-canvas" class="absolute inset-0 h-full w-full object-cover pointer-events-none"></canvas>
 
         <div
             x-show="!$store.bespokeScroll.isReady"
+            x-cloak
             x-transition:leave="transition ease-out duration-700"
             x-transition:leave-start="opacity-100"
             x-transition:leave-end="opacity-0"
-            class="absolute inset-0 z-30 flex flex-col items-center justify-center bg-oxblood-dark/95 backdrop-blur-md"
+            class="absolute inset-0 z-30 flex flex-col items-center justify-center bg-oxblood-dark/95 backdrop-blur-md pointer-events-none"
         >
             <div class="relative flex h-24 w-24 items-center justify-center">
                 <div class="absolute h-full w-full animate-spin rounded-full border-2 border-gold-antique/20 border-t-gold-antique"></div>
