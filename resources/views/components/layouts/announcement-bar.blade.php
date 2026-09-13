@@ -8,9 +8,6 @@
             <span class="text-gold-antique">•</span>
             <span>Since 1991</span>
         </div>
-        <div class="flex-1 text-center px-4">
-            <span>Complimentary Insured Delivery & Private Bridal Viewings</span>
-        </div>
         <div class="flex items-center space-x-4">
             <button
                 type="button"
