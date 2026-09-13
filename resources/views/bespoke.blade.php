@@ -18,6 +18,10 @@
                 </p>
             </div>
 
+            <div class="mt-14 mb-20">
+                <x-sections.gemini-atelier-chat />
+            </div>
+
             <div class="mt-16 grid grid-cols-1 gap-8 md:grid-cols-3">
                 <div class="border border-gold-antique/30 bg-oxblood-dark/70 p-8 backdrop-blur-md shadow-xl transition hover:border-gold-antique">
                     <span class="font-serif text-xs uppercase tracking-[0.25em] text-gold-antique">Phase I</span>
