@@ -1,13 +1,11 @@
 <header
-    x-data="{ mobileMenuOpen: false, currency: 'PKR', currencyOpen: false, scrolled: false }"
-    @scroll.window="scrolled = (window.scrollY > 400)"
-    :class="scrolled ? 'bg-oxblood-dark/95 shadow-2xl border-gold-antique/30' : 'bg-oxblood-dark/70 border-gold-antique/20'"
-    class="fixed top-0 left-0 right-0 z-50 backdrop-blur-md border-b text-ivory-base transition-all duration-500"
+    x-data="{ mobileMenuOpen: false, currency: 'PKR', currencyOpen: false }"
+    class="relative w-full z-40 bg-oxblood-dark border-b border-gold-antique/20 text-ivory-base"
 >
     <x-layouts.announcement-bar />
 
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div class="flex h-16 sm:h-20 items-center justify-between transition-all duration-300">
+        <div class="flex h-16 sm:h-20 items-center justify-between">
             <div class="flex items-center space-x-6 lg:hidden">
                 <button
                     type="button"
@@ -29,7 +27,7 @@
                     <div
                         x-show="currencyOpen"
                         x-cloak
-                        class="absolute left-0 mt-2 w-24 border border-gold-antique/40 bg-oxblood-dark/95 py-1 shadow-2xl backdrop-blur-md"
+                        class="absolute left-0 mt-2 w-24 border border-gold-antique/40 bg-oxblood-dark/95 py-1 shadow-2xl backdrop-blur-md z-50"
                     >
                         <template x-for="curr in ['PKR', 'USD', 'AED', 'GBP']" :key="curr">
                             <button
@@ -132,7 +130,7 @@
         x-transition:leave="transition ease-in duration-150"
         x-transition:leave-start="opacity-100 translate-y-0"
         x-transition:leave-end="opacity-0 -translate-y-2"
-        class="border-b border-gold-antique/30 bg-oxblood-dark/95 backdrop-blur-md px-6 py-6 lg:hidden"
+        class="border-b border-gold-antique/30 bg-oxblood-dark px-6 py-6 lg:hidden"
     >
         <div class="flex flex-col space-y-4">
             <a href="#high-jewellery" @click="mobileMenuOpen = false" class="text-sm font-medium tracking-widest uppercase text-ivory-base hover:text-gold-light">High Jewellery</a>

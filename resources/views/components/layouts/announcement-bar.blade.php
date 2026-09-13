@@ -1,8 +1,4 @@
 <aside
-    x-show="!scrolled"
-    x-transition:leave="transition ease-in duration-200"
-    x-transition:leave-start="opacity-100 -translate-y-0"
-    x-transition:leave-end="opacity-0 -translate-y-2"
     class="border-b border-gold-antique/20 bg-oxblood-dark/95 px-4 py-1.5 text-gold-light"
     aria-label="Announcement"
 >

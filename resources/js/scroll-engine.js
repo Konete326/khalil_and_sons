@@ -54,9 +54,8 @@ export function initHeroScrollEngine(config = {}) {
 
         const scale = Math.max(displayW / img.naturalWidth, displayH / img.naturalHeight);
         const drawW = img.naturalWidth * scale, drawH = img.naturalHeight * scale;
-        const offsetY = ((displayH - drawH) / 2) + Math.round((isMobile ? 35 : 45) * dpr);
         ctx.clearRect(0, 0, displayW, displayH);
-        ctx.drawImage(img, (displayW - drawW) / 2, offsetY, drawW, drawH);
+        ctx.drawImage(img, (displayW - drawW) / 2, (displayH - drawH) / 2, drawW, drawH);
         currentRenderedIndex = frameToDraw;
     }
 
