@@ -52,7 +52,7 @@
                         </div>
                         <div class="p-3 border {{ $step >= 3 ? 'border-gold-antique bg-gold-antique/10 text-gold-light' : 'border-gold-antique/20 opacity-40' }}">
                             <div class="text-xs font-bold">03. IN WORKSHOP</div>
-                            <div class="text-[9px] uppercase mt-1">Karigar Casting</div>
+                            <div class="text-[9px] uppercase mt-1">Artisan Casting</div>
                         </div>
                         <div class="p-3 border {{ $step >= 4 ? 'border-gold-antique bg-gold-antique/10 text-gold-light' : 'border-gold-antique/20 opacity-40' }}">
                             <div class="text-xs font-bold">04. DISPATCH</div>
@@ -85,7 +85,7 @@
                                 </form>
                             @endif
                             <div class="pt-2">
-                                <a href="https://wa.me/923001234567?text={{ urlencode('Assalam-o-Alaikum, inquiring about bespoke order ' . $order->tracking_code) }}" target="_blank" class="inline-flex items-center gap-2 border border-[#25D366]/50 bg-[#25D366]/10 px-4 py-2 text-xs text-[#25D366] hover:bg-[#25D366] hover:text-black transition">
+                                <a href="https://wa.me/923001234567?text={{ urlencode('Hello, inquiring about bespoke order ' . $order->tracking_code) }}" target="_blank" class="inline-flex items-center gap-2 border border-[#25D366]/50 bg-[#25D366]/10 px-4 py-2 text-xs text-[#25D366] hover:bg-[#25D366] hover:text-black transition">
                                     <span>WhatsApp Concierge for {{ $order->tracking_code }}</span>
                                 </a>
                             </div>

@@ -1,4 +1,4 @@
-<x-layouts.app :title="'Our Heritage & Master Karigars | Khalil & Sons Jewellers'">
+<x-layouts.app :title="'Our Heritage & Master Craftsmen | Khalil & Sons Jewellers'">
     <x-sections.about-scroll-canvas />
 
     <section id="heritage-story" class="relative overflow-hidden bg-gradient-to-b from-oxblood-dark via-[#240606] to-ivory-base pt-20 pb-28 text-ivory-base">
@@ -50,7 +50,7 @@
                         <span class="font-serif text-xs uppercase tracking-[0.25em] text-gold-antique">Heritage Milestone II</span>
                         <h3 class="font-serif text-2xl sm:text-3xl lg:text-4xl text-gold-light leading-snug">Pure 22K Solid Craftsmanship & Hallmarking</h3>
                         <p class="text-xs sm:text-sm leading-relaxed text-ivory-base/80">
-                            Every piece sculpted at Khalil & Sons adheres to rigorous Sarafa standards. We work exclusively with certified 22K and 24K pure gold, hand-inspected for hallmarking and structural endurance by master Karigars carrying generational knowledge.
+                            Every piece sculpted at Khalil & Sons adheres to rigorous Sarafa standards. We work exclusively with certified 22K and 24K pure gold, hand-inspected for hallmarking and structural endurance by master artisans carrying generational knowledge.
                         </p>
                         <div class="pt-2 flex items-center gap-4 text-xs font-mono text-gold-antique">
                             <span>• 91.6% Pure Gold</span>

@@ -72,7 +72,7 @@
                 <div class="mt-8 pointer-events-auto">
                     <button
                         type="button"
-                        @click="window.customAlert('Our Karigars employ authentic Mughal techniques including Jadau setting, hand chasing, and pure alloy blending.', 'Atelier Techniques')"
+                        @click="window.customAlert('Our master artisans employ authentic Mughal techniques including Jadau setting, hand chasing, and pure alloy blending.', 'Atelier Techniques')"
                         class="border border-gold-antique bg-oxblood/60 px-7 py-3 text-xs font-semibold tracking-[0.2em] text-gold-light uppercase hover:bg-gold-antique hover:text-oxblood-dark transition backdrop-blur-sm"
                     >
                         Artisan Techniques

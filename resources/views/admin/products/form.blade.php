@@ -72,7 +72,7 @@
                         </div>
                     </div>
                     <div>
-                        <label class="block text-[10px] uppercase tracking-wider text-gold-antique mb-1.5">Stone & Karigari Description</label>
+                        <label class="block text-[10px] uppercase tracking-wider text-gold-antique mb-1.5">Stone & Craftsmanship Description</label>
                         <textarea name="stone_description" rows="2" class="w-full border border-gold-antique/30 bg-black/40 p-2.5 text-xs text-ivory-base focus:border-gold-antique focus:outline-none">{{ old('stone_description', $product->stone_description) }}</textarea>
                     </div>
                 </div>

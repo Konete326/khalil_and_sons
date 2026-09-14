@@ -65,7 +65,7 @@ class GeminiAtelierService
             . "3) Stone rule: 1.5mm stones stay in gross gold weight; stones > 1.5mm deducted from net gold and charged as gemstone cost. "
             . "4) 100% advance gold lock is required to fix the bullion rate. "
             . "Always conclude with a single JSON line: [ESTIMATE:{\"karat\":\"22K\",\"weight_grams\":30,\"gold_rate\":{$rate22k},\"making_charges\":45000,\"gemstone_cost\":35000,\"advance_lock\":1060950,\"total_pkr\":1140950}]. "
-            . "Tone: Courteous, regal, master artisan of Karachi heritage.";
+            . "Tone: Courteous, regal, master artisan of Karachi heritage. Converse strictly in clear, beginner-friendly English without confusing jargon or Roman Urdu.";
     }
 
     private function heuristicFallback(string $msg, bool $hasImage, float $r22k): array
@@ -81,10 +81,10 @@ class GeminiAtelierService
         $gems = $isStudded ? ($hasImage ? 65000 : 35000) : 0;
         $goldCost = round($w * $rate);
         $total = $goldCost + $making + $gems;
-        $style = $isStudded ? 'intricate Jadau stone-studded karigari with Mughal motifs' : 'pure high-luster solid gold hand-carved filigree';
-        $reply = "Assalam-o-Alaikum. Our Saddar workshop has analyzed your reference (" . ($hasImage ? "image design sketch" : "inquiry") . "). "
+        $style = $isStudded ? 'intricate gemstone-studded craftsmanship with royal heritage motifs' : 'pure high-luster solid gold hand-carved filigree';
+        $reply = "Welcome to Khalil & Son's Jewellers. Our Saddar workshop has analyzed your reference (" . ($hasImage ? "image design sketch" : "inquiry") . "). "
             . "We have calibrated this for {$w}g in {$karat} Solid Gold featuring {$style}. "
-            . "Per Karachi Sarafa standards, making is calculated at Rs. " . number_format($makingRate) . "/g, with 100% advance gold lock required to secure today's spot rate. "
+            . "Per Karachi Sarafa standards, the artisan craftsmanship fee is calculated at Rs. " . number_format($makingRate) . "/g, with 100% advance gold lock required to secure today's spot rate. "
             . "Would you like us to customize the gemstone accents or finalize the casting token?";
         return [
             'reply' => $reply,

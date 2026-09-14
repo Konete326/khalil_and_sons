@@ -28,7 +28,7 @@
             let gross = this.product.gross_weight_grams;
             let net = this.product.net_gold_weight_grams;
             let price = encodeURIComponent(this.format(this.calc.total_price_pkr));
-            let msg = `Assalam-o-Alaikum Khalil & Sons Concierge, I would like to inquire about the ${title} (${karat}, Gross: ${gross}g, Net: ${net}g). Quoted Sarafa Price: ${price}. Please confirm availability and spot rate lock.`;
+            let msg = `Hello Khalil & Sons Concierge, I would like to inquire about the ${title} (${karat}, Gross: ${gross}g, Net: ${net}g). Quoted Sarafa Price: ${price}. Please confirm availability and spot rate lock.`;
             return 'https://wa.me/923001234567?text=' + encodeURIComponent(msg);
         }
     }"
@@ -96,7 +96,7 @@
                             <span class="text-ivory-base font-semibold" x-text="'Rs. ' + Math.round(calc.gold_cost_pkr || 0).toLocaleString()"></span>
                         </div>
                         <div class="flex justify-between border-b border-gold-antique/20 pb-2">
-                            <span class="text-ivory-base/70">Karigar Making Charges</span>
+                            <span class="text-ivory-base/70">Artisan Craftsmanship Fee</span>
                             <span class="text-ivory-base font-semibold" x-text="'Rs. ' + (calc.making_rate_per_gram || 1500) + '/g → Rs. ' + Math.round(calc.making_charges_pkr || 0).toLocaleString()"></span>
                         </div>
                         <div class="flex justify-between border-b border-gold-antique/20 pb-2">

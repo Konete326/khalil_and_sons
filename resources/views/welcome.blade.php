@@ -43,7 +43,7 @@
             </div>
 
             <div class="mt-16">
-                <x-sections.collections-grid />
+                <x-sections.collections-grid :categories="$categories" :products="$products" :currency="$currency" />
             </div>
         </div>
     </section>

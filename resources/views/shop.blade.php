@@ -90,6 +90,13 @@
                         </div>
                     </template>
                 </div>
+
+                <template x-if="filteredProducts().length === 0">
+                    <div class="border border-gold-antique/20 bg-oxblood-dark/50 p-12 text-center text-ivory-base/70 font-sans">
+                        <p class="font-serif text-lg text-gold-light">No pieces currently available in this category</p>
+                        <p class="mt-2 text-xs text-ivory-base/60">Our master craftsmen can create a bespoke piece according to your specifications.</p>
+                    </div>
+                </template>
             </div>
         </div>
     </section>

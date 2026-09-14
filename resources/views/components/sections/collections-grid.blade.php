@@ -1,12 +1,13 @@
+@props(['categories' => null, 'products' => null, 'currency' => null])
 @php
-    $categories = \App\Models\Category::orderBy('sort_order')->get();
+    $categories = $categories ?? \App\Models\Category::orderBy('sort_order')->get();
     $currencies = \App\Models\Currency::where('is_active', true)->get();
     $pricingService = app(\App\Services\JewelleryPricingService::class);
-    $rawProducts = \App\Models\Product::with('category')->where('is_active', true)->get();
+    $rawProducts = $products ?? \App\Models\Product::with('category')->where('is_active', true)->get();
     $productsData = $rawProducts->map(function ($p) use ($pricingService) {
-        $data = $p->toArray();
-        $data['pricing'] = $pricingService->calculatePrice($p);
-        $data['category_slug'] = $p->category?->slug ?? '';
+        $data = is_array($p) ? $p : $p->toArray();
+        $data['pricing'] = $data['pricing'] ?? $pricingService->calculatePrice($p);
+        $data['category_slug'] = is_array($p) ? ($p['category_slug'] ?? '') : ($p->category?->slug ?? '');
         return $data;
     });
     $currRates = $currencies->pluck('exchange_rate_to_pkr', 'code');
@@ -31,7 +32,7 @@
         },
         filteredProducts() {
             if (this.activeTab === 'all') return this.products;
-            return this.products.filter(p => p.category_slug === this.activeTab || (this.activeTab === 'rings' && p.category_slug === 'polki-rings'));
+            return this.products.filter(p => p.category_slug === this.activeTab);
         },
         openSpec(product) {
             $dispatch('open-product-spec', { product, currency: this.currency });
@@ -41,47 +42,25 @@
     class="w-full"
 >
     <div class="flex flex-col sm:flex-row items-center justify-between gap-4 border-b border-gold-antique/20 pb-6 mb-10">
-        <div class="flex items-center gap-2 overflow-x-auto max-w-full pb-2 sm:pb-0 scrollbar-none">
+        <div class="flex items-center gap-2 overflow-x-auto max-w-full pb-2 sm:pb-0 scrollbar-none text-xs">
             <button
                 type="button"
                 @click="activeTab = 'all'"
                 :class="activeTab === 'all' ? 'bg-gold-antique text-oxblood-dark font-semibold' : 'text-ivory-base/80 hover:text-gold-light border border-gold-antique/30 bg-oxblood-dark/40'"
-                class="px-4 py-2 text-xs uppercase tracking-widest transition"
+                class="px-4 py-2 uppercase tracking-widest transition flex-shrink-0"
             >
                 All
             </button>
-            <button
-                type="button"
-                @click="activeTab = 'bridal-suites'"
-                :class="activeTab === 'bridal-suites' ? 'bg-gold-antique text-oxblood-dark font-semibold' : 'text-ivory-base/80 hover:text-gold-light border border-gold-antique/30 bg-oxblood-dark/40'"
-                class="px-4 py-2 text-xs uppercase tracking-widest transition"
-            >
-                Bridal Suites
-            </button>
-            <button
-                type="button"
-                @click="activeTab = 'chokers-necklaces'"
-                :class="activeTab === 'chokers-necklaces' ? 'bg-gold-antique text-oxblood-dark font-semibold' : 'text-ivory-base/80 hover:text-gold-light border border-gold-antique/30 bg-oxblood-dark/40'"
-                class="px-4 py-2 text-xs uppercase tracking-widest transition"
-            >
-                Chokers & Necklaces
-            </button>
-            <button
-                type="button"
-                @click="activeTab = 'bangles-kadas'"
-                :class="activeTab === 'bangles-kadas' ? 'bg-gold-antique text-oxblood-dark font-semibold' : 'text-ivory-base/80 hover:text-gold-light border border-gold-antique/30 bg-oxblood-dark/40'"
-                class="px-4 py-2 text-xs uppercase tracking-widest transition"
-            >
-                Bangles & Kadas
-            </button>
-            <button
-                type="button"
-                @click="activeTab = 'rings'"
-                :class="activeTab === 'rings' ? 'bg-gold-antique text-oxblood-dark font-semibold' : 'text-ivory-base/80 hover:text-gold-light border border-gold-antique/30 bg-oxblood-dark/40'"
-                class="px-4 py-2 text-xs uppercase tracking-widest transition"
-            >
-                Rings
-            </button>
+            @foreach($categories as $cat)
+                <button
+                    type="button"
+                    @click="activeTab = '{{ $cat->slug }}'"
+                    :class="activeTab === '{{ $cat->slug }}' ? 'bg-gold-antique text-oxblood-dark font-semibold' : 'text-ivory-base/80 hover:text-gold-light border border-gold-antique/30 bg-oxblood-dark/40'"
+                    class="px-4 py-2 uppercase tracking-widest transition flex-shrink-0"
+                >
+                    {{ $cat->name }}
+                </button>
+            @endforeach
         </div>
 
         <div class="flex items-center gap-3">
@@ -141,4 +120,11 @@
             </div>
         </template>
     </div>
+
+    <template x-if="filteredProducts().length === 0">
+        <div class="border border-gold-antique/20 bg-oxblood-dark/50 p-12 text-center text-ivory-base/70 font-sans">
+            <p class="font-serif text-lg text-gold-light">No pieces currently available in this category</p>
+            <p class="mt-2 text-xs text-ivory-base/60">Our master craftsmen can create a bespoke piece according to your specifications.</p>
+        </div>
+    </template>
 </div>

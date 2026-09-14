@@ -19,8 +19,9 @@ class Tripo3DService
     public function createDraftModel(string $prompt, ?string $imagePublicUrl = null): array
     {
         try {
+            $goldPrompt = 'hyper-realistic 22K solid yellow gold jewellery specimen, PBR gold metalness, ' . ($prompt ?: 'luxury bridal necklace heirloom');
             $payload = [
-                'prompt' => $prompt ?: 'luxury 22k gold bridal jewellery',
+                'prompt' => $goldPrompt,
                 'model' => 'v3.1-20260211',
             ];
 

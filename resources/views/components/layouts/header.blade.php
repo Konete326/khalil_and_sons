@@ -96,7 +96,7 @@
             </div>
 
             <div class="border-t border-gold-antique/30 pt-6 space-y-4">
-                <a href="https://wa.me/923001234567?text=Assalam-o-Alaikum%20Khalil%20%26%20Sons%2C%20I%20would%20like%20to%20inquire%20about%20a%20private%20bridal%20consultation." target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-2 border border-[#25D366]/40 bg-[#25D366]/10 px-4 py-2.5 text-xs text-[#25D366] hover:bg-[#25D366] hover:text-black transition">
+                <a href="https://wa.me/923001234567?text=Hello%20Khalil%20%26%20Sons%2C%20I%20would%20like%20to%20inquire%20about%20a%20private%20bridal%20consultation." target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-2 border border-[#25D366]/40 bg-[#25D366]/10 px-4 py-2.5 text-xs text-[#25D366] hover:bg-[#25D366] hover:text-black transition">
                     <span>WhatsApp VIP Concierge</span>
                 </a>
                 <div class="text-center">

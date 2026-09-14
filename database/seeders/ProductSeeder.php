@@ -49,8 +49,8 @@ class ProductSeeder extends Seeder
             ],
             [
                 'category_id' => $kada?->id,
-                'title' => 'Dastkari 22K Solid Gold Sada Kada Pair',
-                'slug' => 'dastkari-22k-solid-gold-sada-kada-pair',
+                'title' => 'Dastkari 22K Solid Gold Heritage Bangle Pair',
+                'slug' => 'dastkari-22k-solid-gold-heritage-bangle-pair',
                 'karat' => '22K',
                 'gross_weight_grams' => 48.500,
                 'net_gold_weight_grams' => 48.500,

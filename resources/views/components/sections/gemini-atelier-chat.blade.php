@@ -1,7 +1,7 @@
 @php $pMethods = \App\Models\PaymentMethod::where('is_active', true)->get(); $r22k = \App\Models\GoldRate::where('karat', '22K')->first()?->rate_per_gram ?? 35365; @endphp
 <div
     x-data="{
-        messages: [{ role: 'assistant', text: 'Assalam-o-Alaikum! Welcome to Khalil & Son\'s Atelier. I am your Master Goldsmith concierge. Are you looking to craft a bridal set, customize a heritage kada, or design something entirely bespoke from an image?' }],
+        messages: [{ role: 'assistant', text: 'Welcome to Khalil & Son\'s Atelier. I am your Master Goldsmith concierge. Are you looking to craft a bridal set, customize a heritage bangle, or design something entirely bespoke from an image?' }],
         inputText: '', isTyping: false, imageFile: null, imagePreview: null, show3D: false, modelUrl: '{{ asset('assets/models/bridal-choker.glb') }}',
         isGenerating3D: false, progress3D: 100, orderModal: false, orderData: { name: '', phone: '', email: '', notes: '', slip: null },
         quote: { karat: '22K', weight: 25, gold_rate: {{ $r22k }}, making: 37500, gems: 0, advance_lock: {{ round(25 * $r22k) }}, total: {{ round(25 * $r22k + 37500) }}, is_studded: true },
@@ -28,7 +28,7 @@
                     this.quote.is_studded = res.estimate.is_studded ?? true;
                 }
             } catch (e) {
-                this.messages.push({ role: 'assistant', text: 'Karigar desk connected. State your desired karat, target weight in grams, or attach a sketch.' });
+                this.messages.push({ role: 'assistant', text: 'Artisan concierge desk connected. State your desired karat, target weight in grams, or attach a sketch.' });
             } finally {
                 this.isTyping = false; this.imageFile = null; this.imagePreview = null;
                 this.$nextTick(() => { let el = document.getElementById('chat-thread'); if(el) el.scrollTop = el.scrollHeight; });
@@ -74,7 +74,7 @@
             <div class="flex items-center gap-1.5 flex-nowrap">
                 <span class="text-[9px] uppercase tracking-wider text-gold-antique/70 flex-shrink-0 font-mono">Category:</span>
                 <button type="button" @click="sendMessage('I want to commission a bespoke Bridal Choker suite.')" class="px-2 py-0.5 border border-gold-antique/30 bg-oxblood/60 text-gold-light hover:bg-gold-antique hover:text-oxblood-dark transition flex-shrink-0">Bridal Choker</button>
-                <button type="button" @click="sendMessage('I want to customize a handcrafted Polki Kada pair.')" class="px-2 py-0.5 border border-gold-antique/30 bg-oxblood/60 text-gold-light hover:bg-gold-antique hover:text-oxblood-dark transition flex-shrink-0">Polki Kada</button>
+                <button type="button" @click="sendMessage('I want to customize a handcrafted Polki Bangle pair.')" class="px-2 py-0.5 border border-gold-antique/30 bg-oxblood/60 text-gold-light hover:bg-gold-antique hover:text-oxblood-dark transition flex-shrink-0">Polki Bangle</button>
                 <button type="button" @click="sendMessage('I want to design a royal Cocktail Ring with uncut stones.')" class="px-2 py-0.5 border border-gold-antique/30 bg-oxblood/60 text-gold-light hover:bg-gold-antique hover:text-oxblood-dark transition flex-shrink-0">Cocktail Ring</button>
                 <button type="button" @click="sendMessage('I would like to commission Heritage Jhumkas in traditional filigree.')" class="px-2 py-0.5 border border-gold-antique/30 bg-oxblood/60 text-gold-light hover:bg-gold-antique hover:text-oxblood-dark transition flex-shrink-0">Heritage Jhumkas</button>
             </div>
@@ -98,7 +98,7 @@
                     </div>
                 </div>
             </template>
-            <div x-show="isTyping" class="text-gold-antique text-[10px] italic flex items-center gap-1.5"><span class="animate-pulse">●</span> Karigar consulting Sarafa ledger & calculating valuation...</div>
+            <div x-show="isTyping" class="text-gold-antique text-[10px] italic flex items-center gap-1.5"><span class="animate-pulse">●</span> Artisan consulting Sarafa ledger & calculating valuation...</div>
         </div>
         <form @submit.prevent="sendMessage()" class="border-t border-gold-antique/20 pt-3 flex items-center gap-2">
             <label class="p-2 border border-gold-antique/30 text-gold-antique hover:text-gold-light cursor-pointer transition">
@@ -137,7 +137,7 @@
         <div class="border border-gold-antique/30 bg-oxblood-dark/90 p-5 shadow-2xl font-mono text-xs text-ivory-base space-y-2">
             <div class="flex justify-between border-b border-gold-antique/20 pb-1.5"><span class="text-ivory-base/70">Karat & Weight</span><span class="text-gold-light font-bold" x-text="quote.karat + ' Gold • ' + quote.weight + 'g'"></span></div>
             <div class="flex justify-between border-b border-gold-antique/20 pb-1.5"><span class="text-ivory-base/70">Sarafa Spot Gold</span><span x-text="'Rs. ' + Math.round(quote.weight * quote.gold_rate).toLocaleString()"></span></div>
-            <div class="flex justify-between border-b border-gold-antique/20 pb-1.5"><span class="text-ivory-base/70" x-text="quote.is_studded ? 'Karigar Making (Studded Rs. 1,500/g)' : 'Karigar Making (Plain Rs. 1,000/g)'"></span><span x-text="'Rs. ' + Math.round(quote.making).toLocaleString()"></span></div>
+            <div class="flex justify-between border-b border-gold-antique/20 pb-1.5"><span class="text-ivory-base/70" x-text="quote.is_studded ? 'Craftsmanship Fee (Studded Rs. 1,500/g)' : 'Craftsmanship Fee (Plain Rs. 1,000/g)'"></span><span x-text="'Rs. ' + Math.round(quote.making).toLocaleString()"></span></div>
             <div class="flex justify-between border-b border-gold-antique/20 pb-1.5"><span class="text-ivory-base/70">Precious Stones Allowance</span><span x-text="'Rs. ' + Math.round(quote.gems).toLocaleString()"></span></div>
             <div class="flex justify-between border-b border-gold-antique/20 pb-1.5 bg-black/30 px-2 py-1 text-gold-antique"><span class="text-[10px] uppercase">Advance Gold Lock (100% Spot)</span><span class="font-bold text-gold-light" x-text="'Rs. ' + Math.round(quote.advance_lock || (quote.weight * quote.gold_rate)).toLocaleString()"></span></div>
             <div class="flex justify-between items-baseline pt-2 border-t border-gold-antique/40"><span class="text-gold-antique font-sans uppercase tracking-wider font-semibold">Estimated Budget</span><span class="font-serif text-lg font-bold text-gold-light" x-text="'Rs. ' + Math.round(quote.total).toLocaleString()"></span></div>

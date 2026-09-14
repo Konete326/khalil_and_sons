@@ -8,7 +8,7 @@
             </div>
             <div class="flex items-center gap-3">
                 <a href="{{ route('track', ['code' => $order->tracking_code]) }}" target="_blank" class="border border-gold-antique/40 px-3.5 py-2 text-xs font-mono text-gold-light hover:bg-gold-antique hover:text-oxblood-dark transition rounded">Customer View</a>
-                <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $order->customer_phone) }}?text={{ urlencode('Assalam-o-Alaikum ' . $order->customer_name . ', regarding your bespoke order ' . $order->tracking_code) }}" target="_blank" class="border border-[#25D366]/60 bg-[#25D366]/10 px-3.5 py-2 text-xs text-[#25D366] hover:bg-[#25D366] hover:text-black transition rounded">WhatsApp Patron</a>
+                <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $order->customer_phone) }}?text={{ urlencode('Hello ' . $order->customer_name . ', regarding your bespoke order ' . $order->tracking_code) }}" target="_blank" class="border border-[#25D366]/60 bg-[#25D366]/10 px-3.5 py-2 text-xs text-[#25D366] hover:bg-[#25D366] hover:text-black transition rounded">WhatsApp Patron</a>
             </div>
         </div>
 
@@ -75,7 +75,7 @@
                     <label class="block text-[10px] uppercase text-gold-antique">Advance Stage in Karachi Ledger</label>
                     <select name="manufacturing_status" class="w-full border border-gold-antique/30 bg-black/50 p-2.5 text-xs text-ivory-base focus:border-gold-antique focus:outline-none rounded">
                         <option value="inquiry" {{ $order->manufacturing_status === 'inquiry' ? 'selected' : '' }}>01. Inquiry & Spot Lock</option>
-                        <option value="in_workshop" {{ $order->manufacturing_status === 'in_workshop' ? 'selected' : '' }}>02. In Workshop (Karigar Casting)</option>
+                        <option value="in_workshop" {{ $order->manufacturing_status === 'in_workshop' ? 'selected' : '' }}>02. In Workshop (Artisan Casting)</option>
                         <option value="ready_for_dispatch" {{ $order->manufacturing_status === 'ready_for_dispatch' ? 'selected' : '' }}>03. Ready for Vault Dispatch</option>
                         <option value="completed" {{ $order->manufacturing_status === 'completed' ? 'selected' : '' }}>04. Completed & Delivered</option>
                     </select>

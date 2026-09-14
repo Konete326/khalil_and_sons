@@ -88,8 +88,8 @@
 
                 <div class="bg-[#121212] border border-gold-antique/20 rounded-lg p-5 text-xs font-mono space-y-2 text-ivory-base/80">
                     <div class="text-gold-antique uppercase text-[10px] font-serif">Sarafa Commercial Rules:</div>
-                    <p>• Plain Karigari: Flat Rs. 1,000/g</p>
-                    <p>• Studded Karigari: Flat Rs. 1,500/g</p>
+                    <p>• Plain Craftsmanship: Flat Rs. 1,000/g</p>
+                    <p>• Studded Craftsmanship: Flat Rs. 1,500/g</p>
                     <p>• 1.5mm Stone Rule: &le;1.5mm in gold weight; &gt;1.5mm deducted</p>
                     <p>• 100% Gold Advance locks spot price</p>
                 </div>

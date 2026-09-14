@@ -21,5 +21,9 @@ return Application::configure(basePath: dirname(__DIR__))
             users: fn (Request $request) => (auth()->check() && auth()->user()->is_admin) ? route('admin.dashboard') : route('account')
         );
     })
+    ->withSchedule(function (\Illuminate\Console\Scheduling\Schedule $schedule): void {
+        $schedule->command('rates:sync')->dailyAt('09:00');
+        $schedule->command('rates:sync')->dailyAt('14:00');
+    })
     ->withExceptions(function (Exceptions $exceptions): void {
     })->create();

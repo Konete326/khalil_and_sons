@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Models\Currency;
 use App\Models\Product;
 use App\Services\JewelleryPricingService;
+use App\Services\MetalRateSyncService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -13,11 +14,13 @@ use Illuminate\View\View;
 class CatalogController extends Controller
 {
     public function __construct(
-        protected JewelleryPricingService $pricingService
+        protected JewelleryPricingService $pricingService,
+        protected MetalRateSyncService $rateSyncService
     ) {}
 
     private function getCatalogData(Request $request): array
     {
+        $this->rateSyncService->syncIfStale();
         $categories = Category::orderBy('sort_order')->get();
         $currency = Currency::where('code', strtoupper($request->get('currency', 'PKR')))->first()
             ?? Currency::where('code', 'PKR')->first();
@@ -71,6 +74,7 @@ class CatalogController extends Controller
 
     public function rates(): View
     {
+        $this->rateSyncService->syncIfStale();
         $rates = \App\Models\GoldRate::where('is_active', true)->get()->keyBy('karat');
         $usdRate = Currency::where('code', 'USD')->value('exchange_rate_to_pkr') ?: 280.0;
         return view('rates', compact('rates', 'usdRate'));
@@ -78,6 +82,7 @@ class CatalogController extends Controller
 
     public function printRates(): View
     {
+        $this->rateSyncService->syncIfStale();
         $rates = \App\Models\GoldRate::where('is_active', true)->get()->keyBy('karat');
         $usdRate = Currency::where('code', 'USD')->value('exchange_rate_to_pkr') ?: 278.50;
         return view('rates-print', compact('rates', 'usdRate'));

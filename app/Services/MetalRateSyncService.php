@@ -81,4 +81,14 @@ class MetalRateSyncService
 
         return $synced;
     }
+
+    public function syncIfStale(): bool
+    {
+        $latest = GoldRate::where('is_active', true)->latest('effective_date')->first();
+        if (!$latest || $latest->effective_date->diffInHours(now()) >= 24) {
+            $this->sync();
+            return true;
+        }
+        return false;
+    }
 }
