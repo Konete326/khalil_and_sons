@@ -75,4 +75,11 @@ class CatalogController extends Controller
         $usdRate = Currency::where('code', 'USD')->value('exchange_rate_to_pkr') ?: 280.0;
         return view('rates', compact('rates', 'usdRate'));
     }
+
+    public function printRates(): View
+    {
+        $rates = \App\Models\GoldRate::where('is_active', true)->get()->keyBy('karat');
+        $usdRate = Currency::where('code', 'USD')->value('exchange_rate_to_pkr') ?: 278.50;
+        return view('rates-print', compact('rates', 'usdRate'));
+    }
 }

@@ -18,7 +18,7 @@ class CustomOrderController extends Controller
         $validated = $request->validate([
             'message' => 'required|string',
             'history' => 'nullable|array',
-            'image' => 'nullable|image|max:10240',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:10240',
         ]);
         $imagePath = $request->hasFile('image') ? $request->file('image')->getRealPath() : null;
         $result = $service->chat($validated['message'], $validated['history'] ?? [], $imagePath);
@@ -50,13 +50,13 @@ class CustomOrderController extends Controller
             'customer_gold_weight' => 'nullable|numeric|min:0',
             'notes' => 'nullable|string',
             'model_3d_url' => 'nullable|string',
-            'original_image' => 'nullable|image|max:10240',
+            'original_image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:10240',
         ]);
 
         $imagePath = '/assets/products/choker-ruby-01.jpg';
         if ($request->hasFile('original_image')) {
             $file = $request->file('original_image');
-            $filename = 'custom_' . time() . '_' . Str::random(6) . '.' . $file->getClientOriginalExtension();
+            $filename = 'custom_' . Str::random(32) . '.' . $file->extension();
             $file->move(public_path('assets/products'), $filename);
             $imagePath = "/assets/products/{$filename}";
         }
@@ -89,10 +89,10 @@ class CustomOrderController extends Controller
 
     public function uploadSlip(Request $request, string $code): JsonResponse
     {
-        $request->validate(['slip' => 'required|file|mimes:jpeg,png,jpg,pdf|max:10240']);
+        $request->validate(['slip' => 'required|image|mimes:jpeg,png,jpg,webp|max:10240']);
         $order = CustomOrder::where('tracking_code', $code)->firstOrFail();
         $file = $request->file('slip');
-        $filename = 'slip_' . $code . '_' . time() . '.' . $file->getClientOriginalExtension();
+        $filename = 'slip_' . Str::random(32) . '.' . $file->extension();
         $file->move(public_path('assets/slips'), $filename);
         $order->update([
             'payment_slip_path' => "/assets/slips/{$filename}",

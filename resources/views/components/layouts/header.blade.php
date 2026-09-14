@@ -14,7 +14,7 @@
             </a>
 
             <nav class="hidden md:flex items-center space-x-6 lg:space-x-8">
-                <a href="{{ request()->routeIs('home') ? '#collections' : route('home') . '#collections' }}" class="text-xs font-medium tracking-widest uppercase transition {{ request()->routeIs('home') ? 'text-gold-light border-b border-gold-antique/60 pb-0.5' : 'text-ivory-base/85 hover:text-gold-light' }}">Collections</a>
+                <a href="{{ route('shop') }}" class="text-xs font-medium tracking-widest uppercase transition {{ request()->routeIs('shop') ? 'text-gold-light border-b border-gold-antique/60 pb-0.5' : 'text-ivory-base/85 hover:text-gold-light' }}">Collections</a>
                 <a href="{{ route('bespoke') }}" class="text-xs font-medium tracking-widest uppercase transition {{ request()->routeIs('bespoke') ? 'text-gold-light border-b border-gold-antique/60 pb-0.5' : 'text-ivory-base/85 hover:text-gold-light' }}">Custom Atelier</a>
                 <a href="{{ route('gold.rates') }}" class="text-xs font-medium tracking-widest uppercase transition {{ request()->routeIs('gold.rates') ? 'text-gold-light border-b border-gold-antique/60 pb-0.5' : 'text-ivory-base/85 hover:text-gold-light' }}">Gold Rates</a>
                 <a href="{{ route('about') }}" class="text-xs font-medium tracking-widest uppercase transition {{ request()->routeIs('about') ? 'text-gold-light border-b border-gold-antique/60 pb-0.5' : 'text-ivory-base/85 hover:text-gold-light' }}">About Atelier</a>
@@ -73,7 +73,7 @@
                 </div>
 
                 <nav class="mt-6 flex flex-col space-y-3 font-serif">
-                    <a href="{{ request()->routeIs('home') ? '#collections' : route('home') . '#collections' }}" @click="mobileMenuOpen = false" class="text-sm tracking-widest uppercase transition py-2 border-b border-gold-antique/15 {{ request()->routeIs('home') ? 'text-gold-light font-semibold' : 'text-ivory-base hover:text-gold-light' }}">Collections</a>
+                    <a href="{{ route('shop') }}" @click="mobileMenuOpen = false" class="text-sm tracking-widest uppercase transition py-2 border-b border-gold-antique/15 {{ request()->routeIs('shop') ? 'text-gold-light font-semibold' : 'text-ivory-base hover:text-gold-light' }}">Collections</a>
                     <a href="{{ route('bespoke') }}" @click="mobileMenuOpen = false" class="text-sm tracking-widest uppercase transition py-2 border-b border-gold-antique/15 {{ request()->routeIs('bespoke') ? 'text-gold-light font-semibold' : 'text-ivory-base hover:text-gold-light' }}">Custom Atelier</a>
                     <a href="{{ route('gold.rates') }}" @click="mobileMenuOpen = false" class="text-sm tracking-widest uppercase transition py-2 border-b border-gold-antique/15 {{ request()->routeIs('gold.rates') ? 'text-gold-light font-semibold' : 'text-ivory-base hover:text-gold-light' }}">Live Gold Rates</a>
                     <a href="{{ route('about') }}" @click="mobileMenuOpen = false" class="text-sm tracking-widest uppercase transition py-2 border-b border-gold-antique/15 {{ request()->routeIs('about') ? 'text-gold-light font-semibold' : 'text-ivory-base hover:text-gold-light' }}">About Atelier</a>

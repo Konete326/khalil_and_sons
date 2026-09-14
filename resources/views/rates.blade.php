@@ -46,10 +46,10 @@
                         <x-heroicon-o-arrow-down-tray class="h-4 w-4" />
                         <span>Export CSV</span>
                     </button>
-                    <button type="button" @click="window.print()" class="border border-gold-antique bg-gold-antique/20 hover:bg-gold-antique hover:text-oxblood-dark px-4 py-2 text-xs font-mono text-gold-light transition flex items-center space-x-2">
+                    <a href="{{ route('gold.rates.print') }}" target="_blank" class="border border-gold-antique bg-gold-antique/20 hover:bg-gold-antique hover:text-oxblood-dark px-4 py-2 text-xs font-mono text-gold-light transition flex items-center space-x-2">
                         <x-heroicon-o-printer class="h-4 w-4" />
-                        <span>Print Sheet</span>
-                    </button>
+                        <span>Download / Print PDF</span>
+                    </a>
                 </div>
             </div>
 
@@ -123,4 +123,17 @@
             </div>
         </div>
     </div>
+    <style>
+        @media print {
+            header, footer, nav, .no-print, [x-data] button, [x-data] a { display: none !important; }
+            body, html, main, .bg-gradient-to-b { background: #fff !important; color: #000 !important; }
+            .text-gold-light, .text-gold-antique, .text-ivory-base, .text-ivory-base\/70, .text-ivory-base\/90 { color: #000 !important; }
+            .border-gold-antique, .border-gold-antique\/20, .border-gold-antique\/30, .border-gold-antique\/10, .border-gold-antique\/15 { border-color: #000 !important; }
+            .bg-black\/40, .bg-black\/50, .bg-black\/70, .bg-\[\#120303\]\/90 { background: #fff !important; box-shadow: none !important; }
+            table { border: 1px solid #000 !important; }
+            th, td { border: 1px solid #000 !important; color: #000 !important; }
+            thead { background: #f3f4f6 !important; }
+            thead th { color: #000 !important; }
+        }
+    </style>
 </x-layouts.app>

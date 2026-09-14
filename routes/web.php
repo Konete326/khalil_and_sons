@@ -4,11 +4,14 @@ use App\Http\Controllers\Admin;
 use App\Http\Controllers\Auth\CustomerAuthController;
 use App\Http\Controllers\CatalogController;
 use App\Http\Controllers\CustomOrderController;
+use App\Http\Controllers\ShopController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [CatalogController::class, 'index'])->name('home');
+Route::get('/shop', [ShopController::class, 'index'])->name('shop');
 Route::get('/catalog', [CatalogController::class, 'catalog'])->name('catalog');
 Route::get('/gold-rates', [CatalogController::class, 'rates'])->name('gold.rates');
+Route::get('/gold-rates/print', [CatalogController::class, 'printRates'])->name('gold.rates.print');
 Route::get('/about', fn() => view('about'))->name('about');
 Route::get('/bespoke', fn() => view('bespoke'))->name('bespoke');
 
@@ -47,5 +50,14 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
         Route::get('/payments', [Admin\PaymentMethodController::class, 'index'])->name('payments.index');
         Route::post('/payments/{paymentMethod}', [Admin\PaymentMethodController::class, 'update'])->name('payments.update');
+
+        Route::get('/products', [Admin\ProductController::class, 'index'])->name('products.index');
+        Route::get('/products/create', [Admin\ProductController::class, 'create'])->name('products.create');
+        Route::post('/products', [Admin\ProductController::class, 'store'])->name('products.store');
+        Route::get('/products/{product}/edit', [Admin\ProductController::class, 'edit'])->name('products.edit');
+        Route::put('/products/{product}', [Admin\ProductController::class, 'update'])->name('products.update');
+        Route::delete('/products/{product}', [Admin\ProductController::class, 'destroy'])->name('products.destroy');
+        Route::post('/products/{product}/generate-3d', [Admin\ProductController::class, 'generate3D'])->name('products.generate3d');
+        Route::get('/products/{product}/poll-3d/{taskId}', [Admin\ProductController::class, 'poll3D'])->name('products.poll3d');
     });
 });

@@ -28,12 +28,12 @@ class PaymentMethodController extends Controller
             'bank_name' => 'required|string|max:255',
             'instructions' => 'nullable|string',
             'is_active' => 'nullable|boolean',
-            'qr_code' => 'nullable|image|max:5120',
+            'qr_code' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:5120',
         ]);
 
         if ($request->hasFile('qr_code')) {
             $file = $request->file('qr_code');
-            $filename = 'qr_' . $paymentMethod->id . '_' . time() . '.' . $file->getClientOriginalExtension();
+            $filename = 'qr_' . Str::random(32) . '.' . $file->extension();
             $file->move(public_path('assets/payments/qr'), $filename);
             $instructions = trim(($validated['instructions'] ?? '') . "\nQR_IMAGE:/assets/payments/qr/{$filename}");
             $validated['instructions'] = $instructions;
