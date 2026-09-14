@@ -45,6 +45,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
         Route::get('/orders', [Admin\OrderController::class, 'index'])->name('orders.index');
         Route::get('/orders/{order}', [Admin\OrderController::class, 'show'])->name('orders.show');
+        Route::get('/orders/{order}/slip', [Admin\OrderController::class, 'viewSlip'])->name('orders.slip');
         Route::post('/orders/{order}/payment', [Admin\OrderController::class, 'updatePayment'])->name('orders.payment');
         Route::post('/orders/{order}/stage', [Admin\OrderController::class, 'updateStage'])->name('orders.stage');
 

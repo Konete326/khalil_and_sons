@@ -23,13 +23,17 @@
                         'in_workshop' => 2,
                         default => ($order->payment_status === 'verified' ? 2 : ($order->payment_status === 'slip_uploaded' ? 1 : 1))
                     };
+                    $nameParts = explode(' ', trim($order->customer_name));
+                    $maskedName = count($nameParts) > 1 ? $nameParts[0] . ' ' . substr($nameParts[1], 0, 1) . '.' : substr($order->customer_name, 0, 1) . '***';
+                    $phoneDigits = preg_replace('/[^0-9]/', '', $order->customer_phone);
+                    $maskedPhone = strlen($phoneDigits) >= 7 ? substr($phoneDigits, 0, 4) . '****' . substr($phoneDigits, -3) : substr($order->customer_phone, 0, 3) . '****';
                 @endphp
                 <div class="border border-gold-antique/30 bg-oxblood-dark/90 p-6 sm:p-8 shadow-2xl space-y-8">
                     <div class="flex flex-col sm:flex-row sm:items-center justify-between border-b border-gold-antique/20 pb-5 gap-4">
                         <div>
                             <span class="text-[10px] uppercase tracking-widest text-gold-antique">Commission ID:</span>
                             <h2 class="font-mono text-xl sm:text-2xl text-gold-light font-bold">{{ $order->tracking_code }}</h2>
-                            <p class="text-xs text-ivory-base/70 mt-1">Patron: {{ $order->customer_name }} • {{ $order->customer_phone }}</p>
+                            <p class="text-xs text-ivory-base/70 mt-1">Patron: {{ $maskedName }} • {{ $maskedPhone }}</p>
                         </div>
                         <div class="sm:text-right">
                             <span class="inline-block border border-gold-antique/40 bg-gold-antique/10 px-3 py-1 text-xs uppercase tracking-widest text-gold-light font-semibold">Status: {{ ucfirst(str_replace('_', ' ', $order->manufacturing_status)) }}</span>
@@ -69,14 +73,14 @@
                             <h3 class="font-serif text-sm text-gold-light uppercase tracking-wider font-sans">Verification Slip</h3>
                             @if($order->payment_slip_path)
                                 <div class="border border-gold-antique/30 bg-black/40 p-3 flex items-center justify-between">
-                                    <span class="text-[11px] text-emerald-400">Slip Uploaded & Queued</span>
-                                    <a href="{{ asset($order->payment_slip_path) }}" target="_blank" class="text-[11px] underline text-gold-light hover:text-white">View Receipt</a>
+                                    <span class="text-[11px] text-emerald-400">Slip Uploaded & Under Review</span>
+                                    <span class="text-[10px] font-mono text-gold-antique uppercase">Sarafa Clearing</span>
                                 </div>
                             @else
                                 <form action="{{ route('atelier.slip', ['code' => $order->tracking_code]) }}" method="POST" enctype="multipart/form-data" class="space-y-2">
                                     @csrf
                                     <label class="block text-[10px] uppercase text-gold-antique">Attach Deposit Receipt / Raast Screenshot</label>
-                                    <input type="file" name="slip" required class="w-full border border-gold-antique/30 bg-black/30 p-1.5 text-xs text-ivory-base" />
+                                    <input type="file" name="slip" accept="image/jpeg,image/png,image/webp" required class="w-full border border-gold-antique/30 bg-black/30 p-1.5 text-xs text-ivory-base" />
                                     <button type="submit" class="bg-gold-antique px-4 py-2 text-[11px] font-semibold uppercase tracking-wider text-oxblood-dark hover:bg-gold-light transition">Upload Payment Slip</button>
                                 </form>
                             @endif

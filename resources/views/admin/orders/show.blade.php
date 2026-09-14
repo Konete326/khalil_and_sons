@@ -42,7 +42,7 @@
                 </div>
                 @if($order->payment_slip_path)
                     <div class="relative cursor-pointer group" @click="zoomModal = true">
-                        <img src="{{ asset($order->payment_slip_path) }}" alt="Customer Slip" class="w-full aspect-[3/4] object-cover border border-gold-antique/40 shadow-inner rounded" />
+                        <img src="{{ route('admin.orders.slip', $order) }}" alt="Customer Slip" class="w-full aspect-[3/4] object-cover border border-gold-antique/40 shadow-inner rounded" />
                         <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 flex items-center justify-center text-gold-light transition text-xs font-sans rounded">Click to Zoom Lightbox</div>
                     </div>
                     <div class="flex gap-2 pt-2">
@@ -86,7 +86,7 @@
 
         <div x-show="zoomModal" x-cloak class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90 backdrop-blur-md" @click="zoomModal = false">
             <div class="relative max-w-2xl max-h-[90vh] overflow-auto border border-gold-antique/50 bg-[#121212] p-2 rounded-lg" @click.stop>
-                <img src="{{ asset($order->payment_slip_path) }}" alt="Enlarged Slip" class="w-full h-auto rounded" />
+                <img src="{{ route('admin.orders.slip', $order) }}" alt="Enlarged Slip" class="w-full h-auto rounded" />
                 <button type="button" @click="zoomModal = false" class="absolute top-4 right-4 bg-oxblood-dark text-gold-light p-1 border border-gold-antique/40 rounded"><x-heroicon-m-x-mark class="h-6 w-6" /></button>
             </div>
         </div>

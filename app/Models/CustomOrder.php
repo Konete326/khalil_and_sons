@@ -38,4 +38,9 @@ class CustomOrder extends Model
             'design_token_paid' => 'decimal:2',
         ];
     }
+
+    public function getSlipUrlAttribute(): ?string
+    {
+        return $this->payment_slip_path;
+    }
 }

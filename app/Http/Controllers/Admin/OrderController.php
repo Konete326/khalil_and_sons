@@ -6,10 +6,27 @@ use App\Http\Controllers\Controller;
 use App\Models\CustomOrder;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
+use Symfony\Component\HttpFoundation\Response;
 
 class OrderController extends Controller
 {
+    public function viewSlip(CustomOrder $order): Response
+    {
+        $path = $order->slip_url ?: $order->payment_slip_path;
+        if (!$path) {
+            abort(404, 'No slip recorded for this order.');
+        }
+        if (Storage::disk('local')->exists($path)) {
+            return Storage::disk('local')->response($path);
+        }
+        $publicPath = public_path(ltrim($path, '/'));
+        if (file_exists($publicPath)) {
+            return response()->file($publicPath);
+        }
+        abort(404, 'Payment slip file not found.');
+    }
     public function index(Request $request): View
     {
         $filter = $request->input('status', 'all');

@@ -61,7 +61,7 @@ class CustomOrderController extends Controller
             $imagePath = "/assets/products/{$filename}";
         }
 
-        $code = 'KS-ORD-' . strtoupper(Str::random(6));
+        $code = 'KS-ORD-' . strtoupper(Str::random(8));
         $order = CustomOrder::create([
             'tracking_code' => $code,
             'customer_name' => $validated['customer_name'],
@@ -79,30 +79,23 @@ class CustomOrderController extends Controller
             'manufacturing_status' => 'inquiry',
         ]);
 
-        return response()->json([
-            'success' => true,
-            'tracking_code' => $code,
-            'order' => $order,
-            'track_url' => route('track', ['code' => $code]),
-        ]);
+        return response()->json(['success' => true, 'tracking_code' => $code, 'order' => $order, 'track_url' => route('track', ['code' => $code])]);
     }
 
     public function uploadSlip(Request $request, string $code): JsonResponse
     {
         $request->validate(['slip' => 'required|image|mimes:jpeg,png,jpg,webp|max:10240']);
         $order = CustomOrder::where('tracking_code', $code)->firstOrFail();
+
+        if (in_array($order->payment_status, ['verified'], true) || in_array($order->manufacturing_status, ['in_workshop', 'ready_for_dispatch', 'completed'], true)) {
+            return response()->json(['success' => false, 'message' => 'Payment slip cannot be updated for an active or verified commission.'], 403);
+        }
+
         $file = $request->file('slip');
         $filename = 'slip_' . Str::random(32) . '.' . $file->extension();
-        $file->move(public_path('assets/slips'), $filename);
-        $order->update([
-            'payment_slip_path' => "/assets/slips/{$filename}",
-            'payment_status' => 'slip_uploaded',
-        ]);
-        return response()->json([
-            'success' => true,
-            'message' => 'Payment slip uploaded. Our finance desk is verifying with Sarafa clearing.',
-            'order' => $order,
-        ]);
+        $path = $file->storeAs('slips', $filename, 'local');
+        $order->update(['payment_slip_path' => $path, 'payment_status' => 'slip_uploaded']);
+        return response()->json(['success' => true, 'message' => 'Payment slip uploaded securely to atelier vault.', 'order' => $order]);
     }
 
     public function track(?string $code = null): View
