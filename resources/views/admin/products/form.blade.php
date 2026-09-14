@@ -4,7 +4,7 @@
         async triggerAI() {
             @if($product->exists)
             this.generating3D = true; this.progress3D = 20;
-            let res = await (await fetch('{{ route('admin.products.generate3d', $product) }}', { method: 'POST', headers: { 'Content-Type': 'application/json', 'X-CSRF-TOKEN': '{{ csrf_token() }}' } })).json();
+            let res = await (await fetch('{{ route('admin.products.generate3d', $product) }}', { method: 'POST', headers: { 'Content-Type': 'application/json', 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content') } })).json();
             let p = setInterval(async () => {
                 let pr = await (await fetch(`/admin/products/{{ $product->id }}/poll-3d/${res.task_id}`)).json();
                 this.progress3D = pr.progress || this.progress3D;

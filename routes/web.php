@@ -18,23 +18,23 @@ Route::get('/bespoke', fn() => view('bespoke'))->name('bespoke');
 Route::get('/api/catalog', [CatalogController::class, 'catalog'])->name('catalog.api');
 Route::get('/api/pricing/{product}', [CatalogController::class, 'showPrice'])->name('catalog.price');
 
-Route::post('/api/atelier/chat', [CustomOrderController::class, 'chat'])->name('atelier.chat');
-Route::post('/api/atelier/generate-3d', [CustomOrderController::class, 'generate3D'])->name('atelier.3d');
+Route::post('/api/atelier/chat', [CustomOrderController::class, 'chat'])->middleware('throttle:15,1')->name('atelier.chat');
+Route::post('/api/atelier/generate-3d', [CustomOrderController::class, 'generate3D'])->middleware('throttle:5,1')->name('atelier.3d');
 Route::get('/api/atelier/poll-3d/{taskId}', [CustomOrderController::class, 'poll3D'])->name('atelier.poll3d');
 Route::post('/api/atelier/order', [CustomOrderController::class, 'storeOrder'])->name('atelier.order');
 Route::post('/api/atelier/order/{code}/slip', [CustomOrderController::class, 'uploadSlip'])->name('atelier.slip');
-Route::get('/track/{code?}', [CustomOrderController::class, 'track'])->name('track');
+Route::get('/track/{code?}', [CustomOrderController::class, 'track'])->middleware('throttle:20,1')->name('track');
 
 Route::get('/login', [CustomerAuthController::class, 'showLogin'])->name('login');
-Route::post('/login', [CustomerAuthController::class, 'login'])->name('login.submit');
+Route::post('/login', [CustomerAuthController::class, 'login'])->middleware('throttle:6,1')->name('login.submit');
 Route::get('/register', [CustomerAuthController::class, 'showRegister'])->name('register');
-Route::post('/register', [CustomerAuthController::class, 'register'])->name('register.submit');
+Route::post('/register', [CustomerAuthController::class, 'register'])->middleware('throttle:6,1')->name('register.submit');
 Route::post('/logout', [CustomerAuthController::class, 'logout'])->name('logout');
 Route::get('/account', fn() => view('account'))->middleware('auth')->name('account');
 
 Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('/login', [Admin\AdminAuthController::class, 'showLogin'])->name('login');
-    Route::post('/login', [Admin\AdminAuthController::class, 'login'])->name('login.submit');
+    Route::post('/login', [Admin\AdminAuthController::class, 'login'])->middleware('throttle:6,1')->name('login.submit');
     Route::post('/logout', [Admin\AdminAuthController::class, 'logout'])->name('logout');
 
     Route::middleware(['auth', 'admin'])->group(function () {

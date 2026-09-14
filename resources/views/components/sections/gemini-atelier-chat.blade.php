@@ -18,7 +18,7 @@
             if (this.imageFile) fd.append('image', this.imageFile);
             this.messages.slice(-5).forEach((m, idx) => { fd.append(`history[${idx}][role]`, m.role); fd.append(`history[${idx}][content]`, m.text); });
             try {
-                let res = await (await fetch('{{ route('atelier.chat') }}', { method: 'POST', body: fd })).json();
+                let res = await (await fetch('{{ route('atelier.chat') }}', { method: 'POST', body: fd, headers: { 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content') } })).json();
                 this.messages.push({ role: 'assistant', text: res.reply });
                 if (res.estimate) {
                     this.quote.karat = res.estimate.karat || this.quote.karat; this.quote.weight = res.estimate.weight_grams || this.quote.weight;
@@ -36,7 +36,7 @@
         },
         async trigger3D() {
             this.isGenerating3D = true; this.progress3D = 20; this.show3D = true;
-            let res = await (await fetch('{{ route('atelier.3d') }}', { method: 'POST', headers: { 'Content-Type': 'application/json', 'X-CSRF-TOKEN': '{{ csrf_token() }}' }, body: JSON.stringify({ prompt: this.quote.karat + ' gold bridal jewellery ' + this.quote.weight + 'g' }) })).json();
+            let res = await (await fetch('{{ route('atelier.3d') }}', { method: 'POST', headers: { 'Content-Type': 'application/json', 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content') }, body: JSON.stringify({ prompt: this.quote.karat + ' gold bridal jewellery ' + this.quote.weight + 'g' }) })).json();
             let p = setInterval(async () => {
                 let pr = await (await fetch(`/api/atelier/poll-3d/${res.task_id}`)).json();
                 this.progress3D = pr.progress || this.progress3D;
@@ -47,11 +47,11 @@
             let fd = new FormData(); fd.append('_token', '{{ csrf_token() }}'); fd.append('customer_name', this.orderData.name);
             fd.append('customer_phone', this.orderData.phone); fd.append('customer_email', this.orderData.email); fd.append('karat', this.quote.karat);
             fd.append('target_weight_grams', this.quote.weight); fd.append('estimated_budget', this.quote.total); fd.append('model_3d_url', this.modelUrl);
-            let res = await (await fetch('{{ route('atelier.order') }}', { method: 'POST', body: fd })).json();
+            let res = await (await fetch('{{ route('atelier.order') }}', { method: 'POST', body: fd, headers: { 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content') } })).json();
             if (res.success) {
                 if (this.orderData.slip) {
                     let sfd = new FormData(); sfd.append('_token', '{{ csrf_token() }}'); sfd.append('slip', this.orderData.slip);
-                    await fetch(`/api/atelier/order/${res.tracking_code}/slip`, { method: 'POST', body: sfd });
+                    await fetch(`/api/atelier/order/${res.tracking_code}/slip`, { method: 'POST', body: sfd, headers: { 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content') } });
                 }
                 window.location.href = `/track/${res.tracking_code}`;
             }
